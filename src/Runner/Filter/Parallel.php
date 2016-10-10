@@ -1,6 +1,7 @@
 <?php namespace PhpUnit\Runner\Filter;
 
 use InvalidArgumentException;
+use PHPUnit_Framework_TestSuite;
 use RecursiveIterator;
 use RecursiveFilterIterator;
 
@@ -41,6 +42,12 @@ class Parallel extends RecursiveFilterIterator {
      */
     public function accept()
     {
+        $test = $this->getInnerIterator()->current();
+
+        if ($test instanceof PHPUnit_Framework_TestSuite) {
+            return true;
+        }
+
         $mod = (self::$counter - $this->THIS_NODE) % $this->TOTAL_NODES;
         self::$counter++;
 
