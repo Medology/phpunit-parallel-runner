@@ -14,7 +14,7 @@
         "source": "https://github.com/TaysirTayyab/phpunit-parallel-runner"
     },
     "require": {
-        "phpunit/phpunit": "5.6.1"
+        "phpunit/phpunit": "4.*"
     },
     "bin": [
         "phpunit-parallel"
