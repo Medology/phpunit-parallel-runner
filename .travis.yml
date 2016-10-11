@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+    - docker
+
+install:
+    - bin/composer install
+
+script:
+    - bin/phpunit tests/
