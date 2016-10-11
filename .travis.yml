@@ -1,10 +1,18 @@
 sudo: required
 
+cache:
+  directories:
+    - $HOME/.composer
+    - $HOME/.docker/machine/cache
+
 services:
-    - docker
+  - docker
+
+before_install:
+  - export PATH=./bin:$PATH
 
 install:
-    - bin/composer install
+  - bin/composer install
 
 script:
-    - bin/phpunit tests/
+  - bin/phpunit tests/
