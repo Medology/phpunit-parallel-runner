@@ -1,4 +1,4 @@
-![Build Status](https://travis-ci.org/TaysirTayyab/phpunit-parallel-runner.svg?branch=phpunit4)
+![Build Status](https://travis-ci.org/TaysirTayyab/phpunit-parallel-runner.svg?branch=phpunit4) ![Code Climate](https://codeclimate.com/github/TaysirTayyab/phpunit-parallel-runner/badges/gpa.svg) ![Test Coverage](https://codeclimate.com/github/TaysirTayyab/phpunit-parallel-runner/badges/coverage.svg)
 
 # PHPUnit Parallel (Node) Runner
 A parallelizer for running PHPUnit on multiple nodes. While many plugins exist to run PHPUnit in parallel

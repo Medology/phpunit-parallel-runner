@@ -1,18 +1,22 @@
 sudo: required
 
-cache:
-  directories:
-    - $HOME/.composer
-    - $HOME/.docker/machine/cache
-
 services:
   - docker
 
-before_install:
-  - export PATH=./bin:$PATH
+cache:
+  directories:
+    - vendor/
+
+addons:
+  code_climate:
+    repo_token: $CODECLIMATE_REPO_TOKEN
 
 install:
+  - docker build travisci/docker/php -t parallel/php:5.4
   - bin/composer install
 
 script:
-  - bin/phpunit tests/
+  - ./travisci/bin/php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - ./travisci/bin/php vendor/bin/test-reporter
