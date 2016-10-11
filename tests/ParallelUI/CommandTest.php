@@ -48,7 +48,7 @@ class CommandTest extends PHPUnit_Framework_TestCase {
         $cmd = new PHPUnit_Parallel_Command();
         $f = $this->getHiddenMethod(get_class($cmd), 'createRunner');
 
-        $this->assertInstanceOf(PHPUnit_Parallel_TestRunner::class, $f->invokeArgs($cmd, []));
+        $this->assertInstanceOf('PHPUnit\ParallelRunner\PHPUnit_Parallel_TestRunner', $f->invokeArgs($cmd, []));
     }
 
     public function testHelpShowsParallelParameters()
@@ -83,9 +83,9 @@ class CommandTest extends PHPUnit_Framework_TestCase {
 
         try {
             $f->invokeArgs($cmd, [$args]);
-            $this->expectException(RuntimeException::class);
+            $this->expectException("RuntimeException");
         } catch (Exception $e) {
-            $this->assertInstanceOf(RuntimeException::class, $e);
+            $this->assertInstanceOf("RuntimeException", $e);
             $this->assertContains('Both --current-node and --total-nodes are required for parallelism', $e->getMessage());
         }
     }
