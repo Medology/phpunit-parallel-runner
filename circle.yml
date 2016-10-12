@@ -1,6 +1,4 @@
 machine:
-  pre:
-    -
   services:
     - docker
 
@@ -9,12 +7,13 @@ dependencies:
     - "vendor/"
 
   override:
-    - docker build travisci/docker/php -t parallel/php:5.4
-    - bin/composer install
+    - docker build -t parallel/php:5.4 ./circleci/docker/php
+    - ./bin/composer install
 
 test:
   override:
-    - ./circleci/bin/php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+    - ./circleci/bin/php vendor/bin/phpunit --coverage-clover build/logs/clover.xml --log-junit artifacts/junit.xml
 
   post:
     - ./circleci/bin/php vendor/bin/test-reporter
+    - cp artifacts/junit.xml ${CIRCLE_TEST_REPORTS}/phpunit.junit.xml
