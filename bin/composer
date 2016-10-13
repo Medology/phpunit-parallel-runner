@@ -1,3 +1,8 @@
 #!/bin/bash +x
 
-docker run --rm -v "$(pwd)":/data -w /data composer/composer:1.1 "$@"
+RM='';
+if [ "${CIRCLECI}" != true ] ; then
+  RM=--rm;
+fi
+
+docker run $RM -v "$(pwd)":/data -w /data composer/composer:1.1 "$@"

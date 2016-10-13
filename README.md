@@ -1,24 +1,17 @@
-![Build Status](https://travis-ci.org/TaysirTayyab/phpunit-parallel-runner.svg?branch=phpunit4) ![Code Climate](https://codeclimate.com/github/TaysirTayyab/phpunit-parallel-runner/badges/gpa.svg) ![Test Coverage](https://codeclimate.com/github/TaysirTayyab/phpunit-parallel-runner/badges/coverage.svg)
+![Build Status](https://circleci.com/gh/Medology/phpunit-parallel-runner/tree/phpunit4.svg?style=shield&circle-token=273717e1bf67e269b52600fdf9f6d894a91b3afd) ![Code Climate](https://codeclimate.com/github/Medology/phpunit-parallel-runner/badges/gpa.svg) ![Test Coverage](https://codeclimate.com/github/Medology/phpunit-parallel-runner/badges/coverage.svg)
 
 # PHPUnit Parallel (Node) Runner
-A parallelizer for running PHPUnit on multiple nodes. While many plugins exist to run PHPUnit in parallel
-_processes_, this extensions allows for running PHPUnit in parallel on multiple _nodes_. This is often required
- in various CI services such as CircleCI and TravisCI.
+A parallelizer for running PHPUnit on multiple nodes. While many plugins exist to run PHPUnit in parallel _processes_, this extensions allows for running PHPUnit in parallel on multiple _nodes_. This is often required in various CI services such as CircleCI and TravisCI.
  
 ## Dependencies
 This project is an extension for **PHPUnit Version 4**.
 
-The development environment for this project is configured using docker, removing the need to actually install
-anything on your maching. Simply install the [Docker Engine](https://docs.docker.com/engine/installation/) and
-use the scripts in `bin/`.
+The development environment for this project is configured using docker, removing the need to a million languages and package managers on your machine. Simply install the [Docker Engine](https://docs.docker.com/engine/installation/) and use the scripts in `bin/`.
 
 ## Usage
-An entrypoint script is packaged with the extension (entitle `phpunit-parallel.php`). This can be run with the
-arguments `--current-node` and `--total-nodes` representing the index of the node in the cluster (numbered 0-n)
-and the total number of nodes in the cluster (n), respectively.
+An entrypoint script is packaged with the extension (entitle `phpunit-parallel.php`). This can be run with the arguments `--current-node` and `--total-nodes` representing the index of the node in the cluster (numbered 0-n) and the total number of nodes in the cluster (n), respectively.
 
-The `--current-node` option expects a 0-indexed value. That is for a cluster with 3 nodes, the node indexes would
-be 0, 1, and 2.
+The `--current-node` option expects a 0-indexed value. That is for a cluster with 3 nodes, the node indexes would be 0, 1, and 2.
 
 ### Example Usage
 ```
@@ -31,10 +24,10 @@ be 0, 1, and 2.
 
 1. Clone the repository
 2. In the project root run composer
-```
-> bin/composer install
-```
+  ```
+  > bin/composer install
+  ```
 3. Run the unit tests packaged with this extension
-```
-> bin/phpunit
-```
+  ```
+  > bin/phpunit
+  ```

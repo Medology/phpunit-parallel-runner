@@ -1,17 +1,13 @@
 {
-    "name": "TaysirTayyab/php-parallel-runner",
+    "name": "medology/phpunit-parallel-runner",
     "type": "library",
-    "description": "Parallel Runner for PHPUnit",
+    "description": "Parallel (Node) Runner for PHPUnit",
+    "keywords": ["phpunit", "xunit", "testing", "parallel"],
+    "homepage": "https://github.com/Medology/phpunit-parallel-runner",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Taysir Tayyab",
-            "role": "Developer"
-        }
-    ],
     "support": {
-        "issues": "http://github.com/TaysirTayyab/phpunit-parallel-runner/issues",
-        "source": "https://github.com/TaysirTayyab/phpunit-parallel-runner"
+        "issues": "http://github.com/Medology/phpunit-parallel-runner/issues",
+        "source": "https://github.com/Medology/phpunit-parallel-runner"
     },
     "require": {
         "php": ">=5.4",

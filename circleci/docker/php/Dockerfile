@@ -1,3 +1,4 @@
+# code climate coverage reports needs xdebug and the report submitter needs git to work
 FROM php:5.4
 
 RUN yes | pecl install -f xdebug \
