@@ -8,7 +8,7 @@ use RecursiveFilterIterator;
 class Parallel extends RecursiveFilterIterator {
     private $THIS_NODE;
     private $TOTAL_NODES;
-    private static $counter = 0;
+    private static $counter;
 
     /**
      * {@inheritdoc}
@@ -16,7 +16,9 @@ class Parallel extends RecursiveFilterIterator {
     public function __construct(RecursiveIterator $iterator, $filter)
     {
         parent::__construct($iterator);
+
         $this->setFilter($filter[0], $filter[1]);
+        self::$counter = 0;
     }
 
     /**
@@ -48,9 +50,9 @@ class Parallel extends RecursiveFilterIterator {
             return true;
         }
 
-        $mod = (self::$counter - $this->THIS_NODE) % $this->TOTAL_NODES;
+        $mod = (int)(self::$counter - $this->THIS_NODE) % $this->TOTAL_NODES;
         self::$counter++;
 
-        return ($mod == 0);
+        return ($mod === 0);
     }
 }
