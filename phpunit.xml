@@ -9,7 +9,8 @@
          beStrictAboutTodoAnnotatedTests="true"
          verbose="true">
     <testsuite>
-        <directory>./tests/</directory>
+        <directory suffix=".php">./tests/</directory>
+        <directory suffix=".phpt">./tests/</directory>
     </testsuite>
 
     <filter>
