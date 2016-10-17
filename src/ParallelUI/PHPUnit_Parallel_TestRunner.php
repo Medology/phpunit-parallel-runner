@@ -2,6 +2,7 @@
 
 use PHPUnit_Runner_Filter_Factory;
 use PHPUnit_TextUI_TestRunner;
+use PHPUnit_Framework_Test;
 use PHPUnit_Framework_TestSuite;
 use ReflectionClass;
 
@@ -20,7 +21,7 @@ class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
      */
     private function processSuiteFilters(PHPUnit_Framework_TestSuite $suite, array $arguments)
     {
-        if (!$arguments['filter'] &&
+        if (empty($arguments['filter']) &&
             empty($arguments[self::PARALLEL_ARG]) &&
             empty($arguments['groups']) &&
             empty($arguments['excludeGroups'])) {
@@ -43,14 +44,14 @@ class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
             );
         }
 
-        if ($arguments['filter']) {
+        if (!empty($arguments['filter'])) {
             $filterFactory->addFilter(
                 new ReflectionClass('PHPUnit_Runner_Filter_Test'),
                 $arguments['filter']
             );
         }
 
-        if ($arguments[self::PARALLEL_ARG]) {
+        if (!empty($arguments[self::PARALLEL_ARG])) {
             $filterFactory->addFilter(
                 new ReflectionClass('PhpUnit\Runner\Filter\Parallel'),
                 $arguments[self::PARALLEL_ARG]
@@ -63,7 +64,7 @@ class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
     /**
      * {@inheritdoc}
      */
-    public function doRun(PHPUnit_Framework_TestSuite $suite, array $arguments = [], $exit = true)
+    public function doRun(PHPUnit_Framework_Test $suite, array $arguments = array())
     {
         $this->processSuiteFilters($suite, $arguments);
 
