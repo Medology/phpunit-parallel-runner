@@ -1,3 +1,5 @@
 #!/bin/bash +x
 
-php vendor/bin/phpunit "$@"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+(cd "$ROOT" && bin/php vendor/bin/phpunit "$@")
