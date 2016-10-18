@@ -68,6 +68,6 @@ class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
     {
         $this->processSuiteFilters($suite, $arguments);
 
-        call_user_func_array(['parent', 'doRun'], func_get_args());
+        return call_user_func_array(['parent', 'doRun'], func_get_args());
     }
 }
