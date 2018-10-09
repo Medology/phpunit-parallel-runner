@@ -7,7 +7,7 @@ dependencies:
     - "vendor/"
 
   override:
-    - git fetch origin;git config --global user.email "ci@medology.com" && git config --global user.name "Circle CI" && git rebase origin/master
+    - git fetch origin;git config --global user.email "ci@medology.com" && git config --global user.name "Circle CI" && git merge origin/master --no-edit
     - docker build -t parallel/php:5.6 ./circleci/docker/php
     - ./bin/composer install
 
