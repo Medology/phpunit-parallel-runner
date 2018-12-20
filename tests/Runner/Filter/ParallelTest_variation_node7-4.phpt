@@ -18,6 +18,6 @@ PHPUnit_Parallel_Command::main();
 
 --EXPECTF--
 TAP version %s
-ok 1 - BasicTest::testBasic4
-ok 2 - BasicTest::testBasic11
+ok 1 - BasicTest::testBasic1
+ok 2 - BasicTest::testBasic8
 1..2
