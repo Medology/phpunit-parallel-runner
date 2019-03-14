@@ -34,7 +34,7 @@ be 0, 1, and 2.
 1. Clone the repository
 2. In the project root run composer
 ```
-> bin/composer install
+> bin/init_project
 ```
 3. Run the unit tests packaged with this extension
 ```
