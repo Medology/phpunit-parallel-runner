@@ -1,3 +1,18 @@
-#!/bin/bash +x
+#!/usr/bin/env bash
 
-docker run --rm -it -v "$(pwd)":/app -w /app php:5.6 php "$@"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ROOT="$(cd "${DIR}"/../ && pwd)"
+
+. "${ROOT}"/docker/lib/docker_host_user_id.sh
+. "${DIR}"/lib/images.sh
+. "${DIR}"/lib/rm.sh
+. "${DIR}"/lib/tty.sh
+
+docker run \
+    -i${TTY} \
+    -e LOCAL_USER_ID=$DOCKER_HOST_USER_ID \
+    -v $(pwd):/workdir \
+    -v ~/.composer:/home/user/.composer \
+    -w /workdir \
+    ${RM} \
+    ${PHP_ACCOUNT}/${PHP_REPO}:${PHP_TAG} php "$@"

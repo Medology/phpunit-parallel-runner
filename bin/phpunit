@@ -1,6 +1,7 @@
-#!/bin/bash +x
+#!/usr/bin/env bash
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+ROOT="$(cd "${DIR}"/../ && pwd)"
 
 cd "$ROOT"
-bin/php vendor/bin/phpunit "$@"
+php ./vendor/bin/phpunit -c phpunit.xml "$@"

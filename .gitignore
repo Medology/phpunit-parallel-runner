@@ -1,4 +1,5 @@
 .idea/
 vendor/
+bin/composer
 build/
 artifacts/
