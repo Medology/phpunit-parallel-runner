@@ -1,5 +1,0 @@
-#!/bin/bash +x
-
-docker run -it -v "$(pwd)":/app -w /app \
-    -e "CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN" \
-    parallel/php:5.6 php "$@"
