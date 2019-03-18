@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+. "${DIR}"/bin/lib/exitCheck.sh
+
+echo "Installing Composer..."
+"$DIR"/bin/install_composer
+exitCheck $?
+
+echo "Installing Composer dependencies..."
+composer install
+exitCheck $?

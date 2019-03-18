@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+. "${DIR}"/bin/lib/images.sh
+. "${DIR}"/bin/lib/rm.sh
+. "${DIR}"/bin/lib/tty.sh
+
+docker run -i${TTY} ${RM} ${SED_REPO}:${SED_TAG} sed ${ARGS}

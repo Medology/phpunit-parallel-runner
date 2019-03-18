@@ -1,0 +1,72 @@
+version: 2.1
+
+commands:
+  prep:
+    description: "Bring the repository up-to-date with master and handle setup"
+    steps:
+      - checkout
+      - restore_cache:
+          key: composer-{{ checksum "composer.lock" }}
+      - run:
+          name: Configure the CircleCI git user
+          command: |
+            git config --global user.email "ci@medology.com"
+            git config --global user.name "Circle CI"
+      - run:
+          name: Configure git to use SSH instead of HTTP
+          command: |
+            git config --global url.git@github.com:.insteadOf git://github.com/
+            git config --global --add url.git@github.com:.insteadOf https://github.com/
+      - run:
+          name: Merge master
+          command: git fetch origin && git merge origin/master --no-edit
+  test:
+    description: "Set up and run tests"
+    steps:
+      - run:
+          name: Initialize the project
+          command: |
+            mkdir -p ./artifacts
+            bin/init_project
+      - run:
+          name: Unit tests
+          command: phpunit --log-junit artifacts/phpunit.junit.xml --report-useless-tests --strict-coverage
+      - store_test_results:
+          path: artifacts
+      - store_artifacts:
+          path: artifacts
+
+jobs:
+  test:
+    working_directory: /tmp/phpunit-parallel-runner
+    parallelism: 1
+    machine:
+      enabled: true
+    environment:
+      - PATH: /opt/circleci/.pyenv/shims:./bin:./node_modules/.bin:./vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+    steps:
+      - prep
+      - test
+
+  test-php5:
+    working_directory: /tmp/phpunit-parallel-runner
+    parallelism: 1
+    machine:
+      enabled: true
+    environment:
+      - PATH: /opt/circleci/.pyenv/shims:./bin:./node_modules/.bin:./vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+    steps:
+      - prep
+      - run:
+          name: Switch image definitions to PHP 5
+          command: rm bin/lib/images.sh && mv bin/lib/images-php5.sh bin/lib/images.sh
+      - test
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+      - test-php5

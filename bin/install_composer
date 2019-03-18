@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+. "${DIR}"/bin/lib/exitCheck.sh
+
+EXPECTED_VERSION=1.8.0
+
+# Check for existing installation
+if [ -e "$DIR"/bin/composer ]; then
+    echo "Checking Composer version..."
+    FOUND_VERSION=`composer --version | tail -1 | awk '{print $3}' | linux-sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"`
+
+    # Check version of installed composer
+    if [ ${FOUND_VERSION} == ${EXPECTED_VERSION} ]; then
+        # Version is as expected. We're done.
+        echo "Composer ${EXPECTED_VERSION} already installed."
+        exit 0
+    else
+        # Version does not match. Remove it.
+        echo "Removing Composer version ${FOUND_VERSION}..."
+        rm "$DIR"/bin/composer
+        exitCheck $?
+    fi
+fi
+
+# Install composer
+echo "Installing Composer ${EXPECTED_VERSION}..."
+curl -L https://getcomposer.org/download/${EXPECTED_VERSION}/composer.phar > "$DIR"/bin/composer
+exitCheck $?
+
+# Fix permissions
+echo "Fixing Composer bin permissions..."
+chmod 755 "$DIR"/bin/composer
+exitCheck $?
+
+# Run composer to ensure ~/.composer is initialized
+echo "Initializing ~/.composer..."
+composer &> /dev/null
+exitCheck $?
