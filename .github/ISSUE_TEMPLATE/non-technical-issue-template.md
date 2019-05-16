@@ -2,7 +2,7 @@
 name: Non-technical Issue Template
 about: Suggest an idea for this project
 title: ''
-labels: ''
+labels: Epic, Feature
 assignees: ''
 
 ---
@@ -71,7 +71,7 @@ assignees: ''
 
 ## Definition of Done
 
-**Issue**
+**Feature**
 - [ ] User Story is in the Approval state and available for deploy
 - [ ] Stories Coded and Peer Reviewed	
 - [ ] All features not yet implemented or inactive are hidden from the user
@@ -87,14 +87,9 @@ assignees: ''
 - [ ] A manual has been reviewed and presented to the Product Owner
 - [ ] A Potentially Releasable build is available for integration
 - [ ] Product Owner accepts the User Story
-
-**Feature**
-- [ ] Acceptance criteria met
 - [ ] Integrated into a clean build
 - [ ] Promoted to a higher level environment
 - [ ] Automated regression tests pass
-- [ ] Feature level functional tests passed
-- [ ] Non-Functional requirements met
 - [ ] Meets compliance requirements
 - [ ] Functionality documented in necessary user documentation
 
