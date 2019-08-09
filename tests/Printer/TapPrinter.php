@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestFailure;
 use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\Warning;
-use PHPUnit\TextUI\TestRunner;
 use PHPUnit\Util\Printer;
 use Symfony\Component\Yaml\Dumper;
 use Throwable;

@@ -28,5 +28,11 @@
         "classmap" : [
             "src/Runner"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": { "CustomPrinter\\": "tests/Printer" }
+    },
+    "require-dev": {
+        "symfony/yaml": "^4.3"
     }
 }
