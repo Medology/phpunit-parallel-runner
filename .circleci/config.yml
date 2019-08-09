@@ -37,7 +37,7 @@ commands:
           path: artifacts
 
 jobs:
-  test-php7.1:
+  test-php7-1:
     working_directory: /tmp/phpunit-parallel-runner
     parallelism: 1
     machine:
@@ -49,7 +49,7 @@ jobs:
       - prep
       - test
 
-  test-php7.2:
+  test-php7-2:
     working_directory: /tmp/phpunit-parallel-runner
     parallelism: 1
     machine:
@@ -64,7 +64,7 @@ jobs:
           command: rm bin/lib/images.sh && mv bin/lib/images-php7.2.sh bin/lib/images.sh
       - test
 
-  test-php7.3:
+  test-php7-3:
     working_directory: /tmp/phpunit-parallel-runner
     parallelism: 1
     machine:
@@ -83,6 +83,6 @@ workflows:
   version: 2
   test:
     jobs:
-      - test
-      - test-php7.2
-      - test-php7.3
+      - test-php7-1
+      - test-php7-2
+      - test-php7-3
