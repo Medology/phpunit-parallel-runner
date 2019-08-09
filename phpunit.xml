@@ -7,6 +7,7 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutTodoAnnotatedTests="true"
+         printerFile="./tests/Printer/TapPrinter.php"
          verbose="true">
     <testsuite>
         <directory suffix=".php">./tests/</directory>

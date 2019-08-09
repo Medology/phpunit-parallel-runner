@@ -5,7 +5,7 @@
  *
  * Long
  */
-class BasicTest extends \PHPUnit_Framework_TestCase
+class BasicTest extends \PHPUnit\Framework\TestCase
 {
     public function testBasic1()
     {

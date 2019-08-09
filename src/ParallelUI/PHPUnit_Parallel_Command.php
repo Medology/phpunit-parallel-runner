@@ -1,6 +1,10 @@
 <?php namespace PHPUnit\ParallelRunner;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Exception;
+use PHPUnit\TextUI\Command;
+use PHPUnit\TextUI\TestRunner;
+use PHPUnit\Util\Getopt;
 use PHPUnit_Framework_Exception;
 use PHPUnit_TextUI_Command;
 use PHPUnit_Util_Getopt;
@@ -9,7 +13,7 @@ use RuntimeException;
 /**
  * A Parallel Command runner for CLI
  */
-class PHPUnit_Parallel_Command extends PHPUnit_TextUI_Command
+class PHPUnit_Parallel_Command extends Command
 {
     public function __construct() {
         $this->longOptions += [
@@ -21,7 +25,7 @@ class PHPUnit_Parallel_Command extends PHPUnit_TextUI_Command
     /**
      * {@inheritdoc}
      */
-    protected function createRunner()
+    protected function createRunner(): TestRunner
     {
         return new PHPUnit_Parallel_TestRunner($this->arguments['loader']);
     }
@@ -29,15 +33,15 @@ class PHPUnit_Parallel_Command extends PHPUnit_TextUI_Command
     /**
      * {@inheritdoc}
      */
-    protected function handleArguments(array $argv)
+    protected function handleArguments(array $argv):void
     {
         try {
-            $this->options = PHPUnit_Util_Getopt::getopt(
+            $this->options = Getopt::getopt(
                 $argv,
                 'd:c:hv',
                 array_keys($this->longOptions)
             );
-        } catch (PHPUnit_Framework_Exception $e) {
+        } catch (Exception $e) {
             throw new InvalidArgumentException($e->getMessage());
         }
 
@@ -66,7 +70,7 @@ class PHPUnit_Parallel_Command extends PHPUnit_TextUI_Command
     /**
      * {@inheritdoc}
      */
-    protected function showHelp()
+    protected function showHelp():void
     {
         parent::showHelp();
 

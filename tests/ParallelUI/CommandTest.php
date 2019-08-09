@@ -1,13 +1,13 @@
 <?php namespace PHPunit\ParallelRunner\Tests;
 
 use Exception;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\ParallelRunner\PHPUnit_Parallel_Command;
 use PHPUnit\ParallelRunner\PHPUnit_Parallel_TestRunner;
-use PHPUnit_Framework_TestCase;
 use ReflectionClass;
 use RuntimeException;
 
-class CommandTest extends PHPUnit_Framework_TestCase {
+class CommandTest extends TestCase {
     /**
      * @param $class
      * @param $method
