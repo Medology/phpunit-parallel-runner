@@ -134,7 +134,7 @@ class TapPrinter extends Printer implements TestListener
     /**
      * A test suite started their execution.
      *
-     * @param TestSuite $suite
+     * @param TestSuite $suite The current test suite which is going to been executed.
      */
     public function startTestSuite(TestSuite $suite): void
     {
