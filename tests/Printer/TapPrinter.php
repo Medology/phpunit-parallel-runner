@@ -40,7 +40,6 @@ class TapPrinter extends Printer implements TestListener
         parent::__construct($out);
     }
 
-
     /**
      * Adds an error to the output when an error occurred.
      *
@@ -79,8 +78,8 @@ class TapPrinter extends Printer implements TestListener
         $message = explode("\n", TestFailure::exceptionToString($e));
 
         $diagnostic = [
-            'message' => $message[0],
-            'severity' => 'fail'
+            'message'  => $message[0],
+            'severity' => 'fail',
         ];
 
         if ($e instanceof ExpectationFailedException) {
@@ -88,8 +87,8 @@ class TapPrinter extends Printer implements TestListener
 
             if ($cf !== null) {
                 $diagnostic['data'] = [
-                    'got' => $cf->getActual(),
-                    'expected' => $cf->getExpected()
+                    'got'      => $cf->getActual(),
+                    'expected' => $cf->getExpected(),
                 ];
             }
         }

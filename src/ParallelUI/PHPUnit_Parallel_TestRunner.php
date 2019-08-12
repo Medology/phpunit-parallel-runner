@@ -10,7 +10,7 @@ use PHPUnit\TextUI\TestRunner;
 use ReflectionClass;
 
 /**
- * A Parallel test runner for CLI
+ * A Parallel test runner for CLI.
  */
 class PHPUnit_Parallel_TestRunner extends TestRunner
 {
@@ -19,8 +19,8 @@ class PHPUnit_Parallel_TestRunner extends TestRunner
     /**
      * Processes a potentially nested test suite based on various filters through the CLI.
      *
-     * @param  TestSuite $suite     The suite to filter
-     * @param  array     $arguments The CLI arguments
+     * @param  TestSuite            $suite     The suite to filter
+     * @param  array                $arguments The CLI arguments
      * @throws \ReflectionException When an error occurred at accessing the class filters.
      */
     private function processSuiteFilters(TestSuite $suite, array $arguments): void

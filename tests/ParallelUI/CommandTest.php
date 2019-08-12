@@ -17,12 +17,11 @@ class CommandTest extends TestCase
     /**
      * Access the hidden method and make it accessible for the test.
      *
-     * @param string $class         String with the class name
-     * @param string $method        String with the method name.
-     * @throws ReflectionException  When the class or function name cannot be found/accessed.
+     * @param  string              $class  String with the class name
+     * @param  string              $method String with the method name.
+     * @throws ReflectionException When the class or function name cannot be found/accessed.
      *
      * @return ReflectionMethod
-     *
      */
     private function getHiddenMethod(string $class, string $method): ReflectionMethod
     {
@@ -36,13 +35,14 @@ class CommandTest extends TestCase
     /**
      * Gets and return the stdOut output.
      *
-     * @param callable $trigger
+     * @param  callable $trigger
      * @return string
      */
     private function getStdOut(callable $trigger): string
     {
         ob_start();
         $trigger();
+
         return ob_get_clean();
     }
 
@@ -94,8 +94,8 @@ class CommandTest extends TestCase
      * Tests assert the command would fail when both parameters are not provided.
      *
      * @dataProvider singleParameterProvider The helper function used to get the information for tests.
-     * @param        array $args             Arguments used for the test.
-     * @throws       ReflectionException     When the class or function name cannot be found/accessed.
+     * @param  array               $args Arguments used for the test.
+     * @throws ReflectionException When the class or function name cannot be found/accessed.
      */
     public function testCmdFailsWhenBothParamsAreNotProvided(array $args): void
     {
