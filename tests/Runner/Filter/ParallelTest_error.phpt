@@ -21,5 +21,5 @@ try {
 }
 
 --EXPECTF--
-TAP version %s
+
 Current node must be greater than or equal to 0, but less than or equal to total nodes!

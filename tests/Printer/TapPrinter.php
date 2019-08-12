@@ -9,46 +9,44 @@ use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\Warning;
 use PHPUnit\Util\Printer;
+use PHPUnit\Util\Test as UtilTest;
 use Symfony\Component\Yaml\Dumper;
 use Throwable;
 
+/**
+ * Class TapPrinter. Used to customize the output of PHPUnit tests execution.
+ */
 class TapPrinter extends Printer implements TestListener
 {
-
-    /**
-     * @var int
-     */
+    /** @var int Indicates the number of the current test executed. */
     protected $testNumber = 0;
 
-    /**
-     * @var int
-     */
+    /** @var int Indicate the suite level in which the test is executed. */
     protected $testSuiteLevel = 0;
 
-    /**
-     * @var bool
-     */
+    /** @var bool The execution of the test */
     protected $testSuccessful = true;
 
-    /**
-     * @var int
-     */
+    /** @var int Amount of warnings in the current test execution. */
     protected $warningCount = 0;
 
-
+    /**
+     * TapPrinter constructor.
+     *
+     * @param null|mixed $out
+     */
     public function __construct($out = null)
     {
         parent::__construct($out);
-        $this->write("TAP version 13\n");
-
     }
 
 
     /**
-     * An error occurred.
-     * @param Test $test
-     * @param Throwable $t
-     * @param float $time
+     * Adds an error to the output when an error occurred.
+     *
+     * @param Test      $test The current test being executed.
+     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param float     $time Time of the test execution.
      */
     public function addError(Test $test, Throwable $t, float $time): void
     {
@@ -56,10 +54,11 @@ class TapPrinter extends Printer implements TestListener
     }
 
     /**
-     * A warning occurred.
-     * @param Test $test
-     * @param Warning $e
-     * @param float $time
+     * Increments the warning count when a warning occurred during the test execution.
+     *
+     * @param Test    $test The current test being executed.
+     * @param Warning $e    The warning exception thrown during the test execution.
+     * @param float   $time Time of the test execution.
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
@@ -67,50 +66,44 @@ class TapPrinter extends Printer implements TestListener
     }
 
     /**
-     * A failure occurred.
-     * @param Test $test
-     * @param AssertionFailedError $e
-     * @param float $time
+     * When a failure occurred, the exception is catch and added to the output.
+     *
+     * @param Test                 $test The current test being executed.
+     * @param AssertionFailedError $e    The exception thrown during the test execution.
+     * @param float                $time Time of the test execution.
      */
     public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
         $this->writeNotOk($test, 'Failure');
 
-        $message = explode(
-            "\n",
-            TestFailure::exceptionToString($e)
-        );
+        $message = explode("\n", TestFailure::exceptionToString($e));
 
-        $diagnostic = array(
+        $diagnostic = [
             'message' => $message[0],
             'severity' => 'fail'
-        );
+        ];
 
         if ($e instanceof ExpectationFailedException) {
             $cf = $e->getComparisonFailure();
 
             if ($cf !== null) {
-                $diagnostic['data'] = array(
+                $diagnostic['data'] = [
                     'got' => $cf->getActual(),
                     'expected' => $cf->getExpected()
-                );
+                ];
             }
         }
         $yaml = new Dumper();
 
-        $this->write(
-            sprintf(
-                "  ---\n%s  ...\n",
-                $yaml->dump($diagnostic, 2, 2)
-            )
-        );
+        $this->write(sprintf("  ---\n%s  ...\n", $yaml->dump($diagnostic, 2, 2)));
     }
 
     /**
-     * Incomplete test.
-     * @param Test $test
-     * @param Throwable $t
-     * @param float $time
+     * When a test cannot finish the execution, mark them as Incomplete test.
+     *
+     * @param Test      $test The current test being executed.
+     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param float     $time Time of the test execution.
      */
     public function addIncompleteTest(Test $test, Throwable $t, float $time): void
     {
@@ -118,45 +111,38 @@ class TapPrinter extends Printer implements TestListener
     }
 
     /**
-     * Risky test.
-     * @param Test $test
-     * @param Throwable $t
-     * @param float $time
+     * When a test is detected as Risky, mark them as Risky test.
+     *
+     * @param Test      $test The current test being executed.
+     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param float     $time Time of the test execution.
      */
     public function addRiskyTest(Test $test, Throwable $t, float $time): void
     {
-        $this->write(
-            sprintf(
-                "ok %d - # RISKY%s\n",
-                $this->testNumber,
-                $t->getMessage() != '' ? ' ' . $t->getMessage() : ''
-            )
-        );
+        $message = $t->getMessage() !== '' ? ' ' . $t->getMessage() : '';
+        $this->write(sprintf("ok %d - # RISKY%s\n", $this->testNumber, $message));
 
         $this->testSuccessful = false;
     }
 
     /**
-     * Skipped test.
-     * @param Test $test
-     * @param Throwable $t
-     * @param float $time
+     * When a test contains the Skipped annotation, the tests is marked as Skipped test.
+     *
+     * @param Test      $test The current test being executed.
+     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param float     $time Time of the test execution.
      */
     public function addSkippedTest(Test $test, Throwable $t, float $time): void
     {
-        $this->write(
-            sprintf(
-                "ok %d - # SKIP%s\n",
-                $this->testNumber,
-                $t->getMessage() != '' ? ' ' . $t->getMessage() : ''
-            )
-        );
+        $message = $t->getMessage() !== '' ? ' ' . $t->getMessage() : '';
+        $this->write(sprintf("ok %d - # SKIP%s\n", $this->testNumber, $message));
 
         $this->testSuccessful = false;
     }
 
     /**
-     * A test suite started.
+     * A test suite started their execution.
+     *
      * @param TestSuite $suite
      */
     public function startTestSuite(TestSuite $suite): void
@@ -165,8 +151,9 @@ class TapPrinter extends Printer implements TestListener
     }
 
     /**
-     * A test suite ended.
-     * @param TestSuite $suite
+     * A test suite ended their execution.
+     *
+     * @param TestSuite $suite The current test suite ended their execution.
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -178,8 +165,9 @@ class TapPrinter extends Printer implements TestListener
     }
 
     /**
-     * A test started.
-     * @param Test $test
+     * A test started their execution.
+     *
+     * @param Test $test The current test being executed.
      */
     public function startTest(Test $test): void
     {
@@ -188,19 +176,16 @@ class TapPrinter extends Printer implements TestListener
     }
 
     /**
-     * A test ended.
-     * @param Test $test
-     * @param float $time
+     * When a test ended, validates the execution status and output a diagnostics of the execution.
+     *
+     * @param Test  $test The current test being executed.
+     * @param float $time Time of the test execution.
      */
     public function endTest(Test $test, float $time): void
     {
         if ($this->testSuccessful === true) {
             $this->write(
-                sprintf(
-                    "ok %d - %s\n",
-                    $this->testNumber,
-                    \PHPUnit\Util\Test::describeAsString($test)
-                )
+                sprintf("ok %d - %s\n", $this->testNumber, UtilTest::describeAsString($test))
             );
         }
 
@@ -208,27 +193,36 @@ class TapPrinter extends Printer implements TestListener
     }
 
     /**
-     * @param Test $test
-     * @param string $prefix
-     * @param string $directive
+     * When a test fails, writes to the output the status of the test and the failure reason.
+     *
+     * @param Test   $test      The current test being executed.
+     * @param string $prefix    Prefix of the test
+     * @param string $directive Directive
      */
-    protected function writeNotOk(Test $test, $prefix = '', $directive = '')
+    protected function writeNotOk(Test $test, $prefix = '', $directive = ''): void
     {
+        $str_prefix = $prefix !== '' ? $prefix . ': ' : '';
+        $str_directive = $directive !== '' ? ' # ' . $directive : '';
+
         $this->write(
             sprintf(
                 "not ok %d - %s%s%s\n",
                 $this->testNumber,
-                $prefix != '' ? $prefix . ': ' : '',
-                \PHPUnit\Util\Test::describe($test),
-                $directive != '' ? ' # ' . $directive : ''
+                $str_prefix,
+                UtilTest::describe($test),
+                $str_directive
             )
         );
 
         $this->testSuccessful = false;
     }
 
-
-    private function writeDiagnostics(Test $test)
+    /**
+     * Appends to the output the failure reason, unless is defined to not return and output.
+     *
+     * @param Test $test The current test being executed.
+     */
+    private function writeDiagnostics(Test $test): void
     {
         if (!$test instanceof TestCase) {
             return;
@@ -239,12 +233,7 @@ class TapPrinter extends Printer implements TestListener
         }
 
         foreach (explode("\n", trim($test->getActualOutput())) as $line) {
-            $this->write(
-                sprintf(
-                    "# %s\n",
-                    $line
-                )
-            );
+            $this->write(sprintf("# %s\n", $line));
         }
     }
 }

@@ -15,7 +15,6 @@ require_once($dir . '/vendor/autoload.php');
 PHPUnit_Parallel_Command::main();
 
 --EXPECTF--
-TAP version %s
 PHPUnit 7.5.14 by Sebastian Bergmann and contributors.
 
 ok 1 - BasicTest::testBasic1

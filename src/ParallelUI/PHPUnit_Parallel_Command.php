@@ -5,9 +5,6 @@ use PHPUnit\Framework\Exception;
 use PHPUnit\TextUI\Command;
 use PHPUnit\TextUI\TestRunner;
 use PHPUnit\Util\Getopt;
-use PHPUnit_Framework_Exception;
-use PHPUnit_TextUI_Command;
-use PHPUnit_Util_Getopt;
 use RuntimeException;
 
 /**
@@ -15,10 +12,11 @@ use RuntimeException;
  */
 class PHPUnit_Parallel_Command extends Command
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->longOptions += [
             'current-node=' => null,
-            'total-nodes='  => null,
+            'total-nodes=' => null,
         ];
     }
 
@@ -33,7 +31,7 @@ class PHPUnit_Parallel_Command extends Command
     /**
      * {@inheritdoc}
      */
-    protected function handleArguments(array $argv):void
+    protected function handleArguments(array $argv): void
     {
         try {
             $this->options = Getopt::getopt(
@@ -70,7 +68,7 @@ class PHPUnit_Parallel_Command extends Command
     /**
      * {@inheritdoc}
      */
-    protected function showHelp():void
+    protected function showHelp(): void
     {
         parent::showHelp();
 

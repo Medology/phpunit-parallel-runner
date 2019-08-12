@@ -7,10 +7,6 @@ use PHPUnit\Runner\Filter\ExcludeGroupFilterIterator;
 use PHPUnit\Runner\Filter\Factory;
 use PHPUnit\Runner\Filter\IncludeGroupFilterIterator;
 use PHPUnit\TextUI\TestRunner;
-use PHPUnit_Runner_Filter_Factory;
-use PHPUnit_TextUI_TestRunner;
-use PHPUnit_Framework_Test;
-use PHPUnit_Framework_TestSuite;
 use ReflectionClass;
 
 /**
@@ -23,10 +19,11 @@ class PHPUnit_Parallel_TestRunner extends TestRunner
     /**
      * Processes a potentially nested test suite based on various filters through the CLI.
      *
-     * @param TestSuite $suite     The suite to filter
-     * @param array                       $arguments The CLI arguments
+     * @param  TestSuite $suite     The suite to filter
+     * @param  array     $arguments The CLI arguments
+     * @throws \ReflectionException When an error occurred at accessing the class filters.
      */
-    private function processSuiteFilters(TestSuite $suite, array $arguments)
+    private function processSuiteFilters(TestSuite $suite, array $arguments): void
     {
         if (empty($arguments['filter']) &&
             empty($arguments[self::PARALLEL_ARG]) &&
