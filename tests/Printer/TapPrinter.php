@@ -1,4 +1,6 @@
-<?php namespace CustomPrinter;
+<?php declare(strict_types=1);
+
+namespace CustomPrinter;
 
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\ExpectationFailedException;
@@ -29,16 +31,6 @@ class TapPrinter extends Printer implements TestListener
 
     /** @var int Amount of warnings in the current test execution. */
     protected $warningCount = 0;
-
-    /**
-     * TapPrinter constructor.
-     *
-     * @param null|mixed $out
-     */
-    public function __construct($out = null)
-    {
-        parent::__construct($out);
-    }
 
     /**
      * Adds an error to the output when an error occurred.

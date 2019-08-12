@@ -8,6 +8,7 @@ use PHPUnit\Runner\Filter\Factory;
 use PHPUnit\Runner\Filter\IncludeGroupFilterIterator;
 use PHPUnit\TextUI\TestRunner;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * A Parallel test runner for CLI.
@@ -21,7 +22,7 @@ class PHPUnit_Parallel_TestRunner extends TestRunner
      *
      * @param  TestSuite            $suite     The suite to filter
      * @param  array                $arguments The CLI arguments
-     * @throws \ReflectionException When an error occurred at accessing the class filters.
+     * @throws ReflectionException When an error occurred at accessing the class filters.
      */
     private function processSuiteFilters(TestSuite $suite, array $arguments): void
     {
