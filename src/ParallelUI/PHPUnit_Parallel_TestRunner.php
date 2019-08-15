@@ -1,25 +1,30 @@
 <?php namespace PHPUnit\ParallelRunner;
 
-use PHPUnit_Runner_Filter_Factory;
-use PHPUnit_TextUI_TestRunner;
-use PHPUnit_Framework_Test;
-use PHPUnit_Framework_TestSuite;
+use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Runner\Filter\ExcludeGroupFilterIterator;
+use PHPUnit\Runner\Filter\Factory;
+use PHPUnit\Runner\Filter\IncludeGroupFilterIterator;
+use PHPUnit\TextUI\TestRunner;
 use ReflectionClass;
+use ReflectionException;
 
 /**
- * A Parallel test runner for CLI
+ * A Parallel test runner for CLI.
  */
-class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
+class PHPUnit_Parallel_TestRunner extends TestRunner
 {
     const PARALLEL_ARG = 'parallelNodes';
 
     /**
      * Processes a potentially nested test suite based on various filters through the CLI.
      *
-     * @param PHPUnit_Framework_TestSuite $suite     The suite to filter
-     * @param array                       $arguments The CLI arguments
+     * @param  TestSuite           $suite     The suite to filter
+     * @param  array               $arguments The CLI arguments
+     * @throws ReflectionException When an error occurred at accessing the class filters.
      */
-    private function processSuiteFilters(PHPUnit_Framework_TestSuite $suite, array $arguments)
+    private function processSuiteFilters(TestSuite $suite, array $arguments): void
     {
         if (empty($arguments['filter']) &&
             empty($arguments[self::PARALLEL_ARG]) &&
@@ -28,18 +33,18 @@ class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
             return;
         }
 
-        $filterFactory = new PHPUnit_Runner_Filter_Factory();
+        $filterFactory = new Factory();
 
         if (!empty($arguments['excludeGroups'])) {
             $filterFactory->addFilter(
-                new ReflectionClass('PHPUnit_Runner_Filter_Group_Exclude'),
+                new ReflectionClass(ExcludeGroupFilterIterator::class),
                 $arguments['excludeGroups']
             );
         }
 
         if (!empty($arguments['groups'])) {
             $filterFactory->addFilter(
-                new ReflectionClass('PHPUnit_Runner_Filter_Group_Include'),
+                new ReflectionClass(IncludeGroupFilterIterator::class),
                 $arguments['groups']
             );
         }
@@ -64,7 +69,7 @@ class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
     /**
      * {@inheritdoc}
      */
-    public function doRun(PHPUnit_Framework_Test $suite, array $arguments = [], $exit = true)
+    public function doRun(Test $suite, array $arguments = [], bool $exit = true): TestResult
     {
         $this->processSuiteFilters($suite, $arguments);
 

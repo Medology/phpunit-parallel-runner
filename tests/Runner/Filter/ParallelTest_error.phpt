@@ -6,7 +6,7 @@ use PHPUnit\ParallelRunner\PHPUnit_Parallel_Command;
 
 // $_SERVER['argv'][0] = 'phpunit'; // this will be set by the shell
 $_SERVER['argv'][1] = '--no-configuration';
-$_SERVER['argv'][2] = '--tap';
+$_SERVER['argv'][2] = '--printer=CustomPrinter\TapPrinter';
 $_SERVER['argv'][3] = '--current-node=1';
 $_SERVER['argv'][4] = '--total-nodes=1';
 $_SERVER['argv'][5] = __DIR__ . '/_files/BasicTestFile.php';
@@ -21,5 +21,5 @@ try {
 }
 
 --EXPECTF--
-TAP version %s
+
 Current node must be greater than or equal to 0, but less than or equal to total nodes!
