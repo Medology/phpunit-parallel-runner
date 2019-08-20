@@ -1,0 +1,2 @@
+version: 3
+extends: "https://api.github.com/repos/medology/Scripts/contents/Pull%20Approve/base.pullapprove.yml?ref=master"
