@@ -17,6 +17,7 @@ use Symfony\Component\Yaml\Dumper;
 
 /**
  * Class TapPrinter. Used to customize the output of PHPUnit tests execution.
+ * @since phpunit5
  */
 class TapPrinter extends Printer implements TestListener
 {
