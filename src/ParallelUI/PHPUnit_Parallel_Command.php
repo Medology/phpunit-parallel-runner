@@ -1,10 +1,10 @@
 <?php namespace PHPUnit\ParallelRunner;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\Exception;
-use PHPUnit\TextUI\Command;
-use PHPUnit\TextUI\TestRunner;
-use PHPUnit\Util\Getopt;
+use PHPUnit_Framework_Exception as Exception;
+use PHPUnit_Util_Getopt as Getopt;
+use PHPUnit_TextUI_Command as Command;
+use PHPUnit_TextUI_TestRunner as TestRunner;
 use RuntimeException;
 
 /**

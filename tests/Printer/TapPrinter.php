@@ -2,18 +2,18 @@
 
 namespace CustomPrinter;
 
-use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\TestFailure;
-use PHPUnit\Framework\TestListener;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Framework\Warning;
-use PHPUnit\Util\Printer;
-use PHPUnit\Util\Test as UtilTest;
+use Exception;
+use PHPUnit_Framework_AssertionFailedError as AssertionFailedError;
+use PHPUnit_Framework_ExpectationFailedException as ExpectationFailedException;
+use PHPUnit_Framework_Test as Test;
+use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit_Framework_TestFailure as TestFailure;
+use PHPUnit_Framework_TestListener as TestListener;
+use PHPUnit_Framework_TestSuite as TestSuite;
+use PHPUnit_Framework_Warning as Warning;
+use PHPUnit_Util_Printer as Printer;
+use PHPUnit_Util_Test as UtilTest;
 use Symfony\Component\Yaml\Dumper;
-use Throwable;
 
 /**
  * Class TapPrinter. Used to customize the output of PHPUnit tests execution.
@@ -36,10 +36,10 @@ class TapPrinter extends Printer implements TestListener
      * Adds an error to the output when an error occurred.
      *
      * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param Exception $t    The throwable exception returned during the test execution.
      * @param float     $time Time of the test execution.
      */
-    public function addError(Test $test, Throwable $t, float $time): void
+    public function addError(Test $test, Exception $t, $time): void
     {
         $this->writeNotOk($test, 'Error');
     }
@@ -63,7 +63,7 @@ class TapPrinter extends Printer implements TestListener
      * @param AssertionFailedError $e    The exception thrown during the test execution.
      * @param float                $time Time of the test execution.
      */
-    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
+    public function addFailure(Test $test, AssertionFailedError $e,  $time): void
     {
         $this->writeNotOk($test, 'Failure');
 
@@ -93,10 +93,10 @@ class TapPrinter extends Printer implements TestListener
      * When a test cannot finish the execution, mark them as Incomplete test.
      *
      * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param Exception $t    The throwable exception returned during the test execution.
      * @param float     $time Time of the test execution.
      */
-    public function addIncompleteTest(Test $test, Throwable $t, float $time): void
+    public function addIncompleteTest(Test $test, Exception $t,  $time): void
     {
         $this->writeNotOk($test, '', 'TODO Incomplete Test');
     }
@@ -105,10 +105,10 @@ class TapPrinter extends Printer implements TestListener
      * When a test is detected as Risky, mark them as Risky test.
      *
      * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param Exception $t    The throwable exception returned during the test execution.
      * @param float     $time Time of the test execution.
      */
-    public function addRiskyTest(Test $test, Throwable $t, float $time): void
+    public function addRiskyTest(Test $test, Exception $t,  $time): void
     {
         $message = $t->getMessage() !== '' ? ' ' . $t->getMessage() : '';
         $this->write(sprintf("ok %d - # RISKY%s\n", $this->testNumber, $message));
@@ -120,10 +120,10 @@ class TapPrinter extends Printer implements TestListener
      * When a test contains the Skipped annotation, the tests is marked as Skipped test.
      *
      * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
+     * @param Exception $t    The throwable exception returned during the test execution.
      * @param float     $time Time of the test execution.
      */
-    public function addSkippedTest(Test $test, Throwable $t, float $time): void
+    public function addSkippedTest(Test $test, Exception $t,  $time): void
     {
         $message = $t->getMessage() !== '' ? ' ' . $t->getMessage() : '';
         $this->write(sprintf("ok %d - # SKIP%s\n", $this->testNumber, $message));
@@ -172,11 +172,11 @@ class TapPrinter extends Printer implements TestListener
      * @param Test  $test The current test being executed.
      * @param float $time Time of the test execution.
      */
-    public function endTest(Test $test, float $time): void
+    public function endTest(Test $test,  $time): void
     {
         if ($this->testSuccessful === true) {
             $this->write(
-                sprintf("ok %d - %s\n", $this->testNumber, UtilTest::describeAsString($test))
+                sprintf("ok %d - %s\n", $this->testNumber, UtilTest::describe($test))
             );
         }
 
