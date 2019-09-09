@@ -8,6 +8,6 @@ pullapprove_conditions:
     unmet_status: pending
     explanation: "Not ready for review"
   - condition: "state == 'open'"
-    explanation: "PR must be open to be reviewed"
     unmet_status: failure
+    explanation: "PR must be open to be reviewed"
 
