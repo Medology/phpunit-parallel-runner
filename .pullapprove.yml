@@ -1,0 +1,16 @@
+version: 3
+extends: "https://api.github.com/repos/medology/Scripts/contents/Pull%20Approve/base.pullapprove.yml?ref=master"
+pullapprove_conditions:
+  - 
+    condition: "base.ref == 'master'"
+    unmet_status: failure
+    explanation: "PullApprove is not configured for this branch"
+  - 
+    condition: "'[DO NOT REVIEW]' not in title"
+    unmet_status: pending
+    explanation: "Not ready for review"
+  - 
+    condition: "state == 'open'"
+    explanation: "PR must be open to be reviewed"
+    unmet_status: failure
+
