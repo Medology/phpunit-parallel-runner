@@ -19,3 +19,6 @@ pullapprove_conditions:
   - condition: "state == 'open'"
     unmet_status: failure
     explanation: "PR must be open to be reviewed"
+  - condition: "'continuous-integration/styleci/pr' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "StyleCI must pass before requesting review"
