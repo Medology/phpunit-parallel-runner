@@ -22,3 +22,12 @@ pullapprove_conditions:
   - condition: "'continuous-integration/styleci/pr' in statuses.succeeded or 'Force Review' in labels"
     unmet_status: pending
     explanation: "StyleCI must pass before requesting review"
+  - condition: "'ci/circleci: test-php7-1' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "ci/circleci: test-php7-1 must pass before requesting review"
+  - condition: "'ci/circleci: test-php7-2' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "ci/circleci: test-php7-2 must pass before requesting review"
+  - condition: "'ci/circleci: test-php7-3' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "ci/circleci: test-php7-3 must pass before requesting review"
