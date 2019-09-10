@@ -7,6 +7,15 @@ pullapprove_conditions:
   - condition: "'[DO NOT REVIEW]' not in title"
     unmet_status: pending
     explanation: "Not ready for review"
+  - condition: "'[NO REVIEW]' not in title"
+    unmet_status: pending
+    explanation: "Not ready for review"
+  - condition: "'No Review' not in labels"
+    unmet_status: pending
+    explanation: "Not ready for review"
+  - condition: "'Do Not Review' not in labels"
+    unmet_status: pending
+    explanation: "Not ready for review"
   - condition: "state == 'open'"
     unmet_status: failure
     explanation: "PR must be open to be reviewed"
