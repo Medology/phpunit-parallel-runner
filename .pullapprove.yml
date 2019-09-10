@@ -10,4 +10,3 @@ pullapprove_conditions:
   - condition: "state == 'open'"
     unmet_status: failure
     explanation: "PR must be open to be reviewed"
-
