@@ -1,0 +1,33 @@
+version: 3
+extends: "https://api.github.com/repos/medology/Scripts/contents/Pull%20Approve/base.pullapprove.yml?ref=master"
+pullapprove_conditions:
+  - condition: "base.ref == 'master'"
+    unmet_status: failure
+    explanation: "PullApprove is not configured for this branch"
+  - condition: "'[DO NOT REVIEW]' not in title"
+    unmet_status: pending
+    explanation: "Not ready for review"
+  - condition: "'[NO REVIEW]' not in title"
+    unmet_status: pending
+    explanation: "Not ready for review"
+  - condition: "'No Review' not in labels"
+    unmet_status: pending
+    explanation: "Not ready for review"
+  - condition: "'Do Not Review' not in labels"
+    unmet_status: pending
+    explanation: "Not ready for review"
+  - condition: "state == 'open'"
+    unmet_status: failure
+    explanation: "PR must be open to be reviewed"
+  - condition: "'continuous-integration/styleci/pr' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "StyleCI must pass before requesting review"
+  - condition: "'ci/circleci: test-php7-1' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "ci/circleci: test-php7-1 must pass before requesting review"
+  - condition: "'ci/circleci: test-php7-2' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "ci/circleci: test-php7-2 must pass before requesting review"
+  - condition: "'ci/circleci: test-php7-3' in statuses.succeeded or 'Force Review' in labels"
+    unmet_status: pending
+    explanation: "ci/circleci: test-php7-3 must pass before requesting review"
