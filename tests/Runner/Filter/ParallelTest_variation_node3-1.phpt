@@ -17,7 +17,7 @@ require_once($dir . '/vendor/autoload.php');
 PHPUnit_Parallel_Command::main();
 
 --EXPECTF--
-PHPUnit 7.5.14 by Sebastian Bergmann and contributors.
+PHPUnit %s by Sebastian Bergmann and contributors.
 
 ok 1 - BasicTest::testBasic1
 ok 2 - BasicTest::testBasic4
