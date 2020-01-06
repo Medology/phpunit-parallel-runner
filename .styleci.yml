@@ -1,0 +1,11 @@
+preset: recommended
+disabled:
+  - blank_line_after_opening_tag
+  - concat_without_spaces
+  - phpdoc_separation
+  - post_increment
+  - single_blank_line_before_namespace
+enabled:
+  - blank_line_before_break
+  - blank_line_before_continue
+  - blank_line_before_declare
