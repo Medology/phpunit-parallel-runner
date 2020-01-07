@@ -1,4 +1,6 @@
-<?php namespace PHPunit\ParallelRunner\Tests;
+<?php
+
+namespace PHPunit\ParallelRunner\Tests;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -17,8 +19,9 @@ class CommandTest extends TestCase
     /**
      * Access the hidden method and make it accessible for the test.
      *
-     * @param  string              $class  String with the class name
-     * @param  string              $method String with the method name.
+     * @param string $class  String with the class name
+     * @param string $method String with the method name.
+     *
      * @throws ReflectionException When the class or function name cannot be found/accessed.
      *
      * @return ReflectionMethod
@@ -35,7 +38,8 @@ class CommandTest extends TestCase
     /**
      * Gets and return the stdOut output.
      *
-     * @param  callable $trigger
+     * @param callable $trigger
+     *
      * @return string
      */
     private function getStdOut(callable $trigger): string
@@ -94,7 +98,9 @@ class CommandTest extends TestCase
      * Tests assert the command would fail when both parameters are not provided.
      *
      * @dataProvider singleParameterProvider The helper function used to get the information for tests.
-     * @param  array               $args Arguments used for the test.
+     *
+     * @param array $args Arguments used for the test.
+     *
      * @throws ReflectionException When the class or function name cannot be found/accessed.
      */
     public function testCmdFailsWhenBothParamsAreNotProvided(array $args): void
