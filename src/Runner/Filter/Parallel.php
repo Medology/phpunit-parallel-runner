@@ -2,10 +2,11 @@
 
 use InvalidArgumentException;
 use PHPUnit_Framework_TestSuite;
-use RecursiveIterator;
 use RecursiveFilterIterator;
+use RecursiveIterator;
 
-class Parallel extends RecursiveFilterIterator {
+class Parallel extends RecursiveFilterIterator
+{
     private $THIS_NODE;
     private $TOTAL_NODES;
     private static $counter;
@@ -29,7 +30,7 @@ class Parallel extends RecursiveFilterIterator {
     {
         if (!is_numeric($totalNodes) || $totalNodes < 1) {
             throw new InvalidArgumentException('Total nodes must be greater than or equal to 1!');
-        } else if (!is_numeric($currentNode) || $currentNode < 0 || $currentNode >= $totalNodes) {
+        } elseif (!is_numeric($currentNode) || $currentNode < 0 || $currentNode >= $totalNodes) {
             throw new InvalidArgumentException(
                 'Current node must be greater than or equal to 0, but less than or equal to total nodes!'
             );
@@ -50,9 +51,9 @@ class Parallel extends RecursiveFilterIterator {
             return true;
         }
 
-        $mod = (int)(self::$counter - $this->THIS_NODE) % $this->TOTAL_NODES;
+        $mod = (int) (self::$counter - $this->THIS_NODE) % $this->TOTAL_NODES;
         self::$counter++;
 
-        return ($mod === 0);
+        return $mod === 0;
     }
 }

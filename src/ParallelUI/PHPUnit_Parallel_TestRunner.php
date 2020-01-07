@@ -1,13 +1,13 @@
 <?php namespace PHPUnit\ParallelRunner;
 
-use PHPUnit_Runner_Filter_Factory;
-use PHPUnit_TextUI_TestRunner;
 use PHPUnit_Framework_Test;
 use PHPUnit_Framework_TestSuite;
+use PHPUnit_Runner_Filter_Factory;
+use PHPUnit_TextUI_TestRunner;
 use ReflectionClass;
 
 /**
- * A Parallel test runner for CLI
+ * A Parallel test runner for CLI.
  */
 class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
 {
@@ -64,7 +64,7 @@ class PHPUnit_Parallel_TestRunner extends PHPUnit_TextUI_TestRunner
     /**
      * {@inheritdoc}
      */
-    public function doRun(PHPUnit_Framework_Test $suite, array $arguments = array())
+    public function doRun(PHPUnit_Framework_Test $suite, array $arguments = [])
     {
         $this->processSuiteFilters($suite, $arguments);
 

@@ -7,11 +7,12 @@ use PHPUnit_Util_Getopt;
 use RuntimeException;
 
 /**
- * A Parallel Command runner for CLI
+ * A Parallel Command runner for CLI.
  */
 class PHPUnit_Parallel_Command extends PHPUnit_TextUI_Command
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->longOptions += [
             'current-node=' => null,
             'total-nodes='  => null,
@@ -47,16 +48,18 @@ class PHPUnit_Parallel_Command extends PHPUnit_TextUI_Command
             switch ($option[0]) {
                 case '--current-node':
                     $this->arguments[PHPUnit_Parallel_TestRunner::PARALLEL_ARG][0] = $option[1];
+
                     break;
                 case '--total-nodes':
                     $this->arguments[PHPUnit_Parallel_TestRunner::PARALLEL_ARG][1] = $option[1];
+
                     break;
             }
         }
 
         if (count($this->arguments[PHPUnit_Parallel_TestRunner::PARALLEL_ARG]) == 0) {
             unset($this->arguments[PHPUnit_Parallel_TestRunner::PARALLEL_ARG]);
-        } else if (count($this->arguments[PHPUnit_Parallel_TestRunner::PARALLEL_ARG]) != 2) {
+        } elseif (count($this->arguments[PHPUnit_Parallel_TestRunner::PARALLEL_ARG]) != 2) {
             throw new RuntimeException('Both --current-node and --total-nodes are required for parallelism');
         }
 
@@ -70,7 +73,7 @@ class PHPUnit_Parallel_Command extends PHPUnit_TextUI_Command
     {
         parent::showHelp();
 
-        print <<<EOT
+        echo <<<'EOT'
 
 Parallel Options:
 

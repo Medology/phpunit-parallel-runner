@@ -2,18 +2,18 @@
 
 use Exception;
 use PHPUnit\ParallelRunner\PHPUnit_Parallel_Command;
-use PHPUnit\ParallelRunner\PHPUnit_Parallel_TestRunner;
 use PHPUnit_Framework_TestCase;
 use ReflectionClass;
-use RuntimeException;
 
-class CommandTest extends PHPUnit_Framework_TestCase {
+class CommandTest extends PHPUnit_Framework_TestCase
+{
     /**
      * @param $class
      * @param $method
      * @return \ReflectionMethod
      */
-    private function getHiddenMethod($class, $method) {
+    private function getHiddenMethod($class, $method)
+    {
         $r = new ReflectionClass($class);
         $f = $r->getMethod($method);
         $f->setAccessible(true);
@@ -22,10 +22,11 @@ class CommandTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @param callable $trigger
+     * @param  callable $trigger
      * @return string
      */
-    private function getStdOut(callable $trigger) {
+    private function getStdOut(callable $trigger)
+    {
         // start output buffering
         ob_start();
 
@@ -41,10 +42,8 @@ class CommandTest extends PHPUnit_Framework_TestCase {
         return $output;
     }
 
-    /**
-     *
-     */
-    public function testCreateRunnerReturnsParallelRunner() {
+    public function testCreateRunnerReturnsParallelRunner()
+    {
         $cmd = new PHPUnit_Parallel_Command();
         $f = $this->getHiddenMethod(get_class($cmd), 'createRunner');
 
@@ -56,7 +55,7 @@ class CommandTest extends PHPUnit_Framework_TestCase {
         $cmd = new PHPUnit_Parallel_Command();
         $f = $this->getHiddenMethod(get_class($cmd), 'showHelp');
 
-        $help = $this->getStdOut(function() use ($cmd, $f) {
+        $help = $this->getStdOut(function () use ($cmd, $f) {
             $f->invokeArgs($cmd, []);
         });
 
@@ -67,7 +66,8 @@ class CommandTest extends PHPUnit_Framework_TestCase {
     /**
      * @return array
      */
-    public function singleParameterProvider() {
+    public function singleParameterProvider()
+    {
         return [
             [['--current-node=0']],
             [['--total-nodes=1']],
@@ -77,15 +77,16 @@ class CommandTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider singleParameterProvider
      */
-    public function testCmdFailsWhenBothParamsAreNotProvided($args) {
+    public function testCmdFailsWhenBothParamsAreNotProvided($args)
+    {
         $cmd = new PHPUnit_Parallel_Command();
         $f = $this->getHiddenMethod(get_class($cmd), 'handleArguments');
 
         try {
             $f->invokeArgs($cmd, [$args]);
-            $this->expectException("RuntimeException");
+            $this->expectException('RuntimeException');
         } catch (Exception $e) {
-            $this->assertInstanceOf("RuntimeException", $e);
+            $this->assertInstanceOf('RuntimeException', $e);
             $this->assertContains('Both --current-node and --total-nodes are required for parallelism', $e->getMessage());
         }
     }
