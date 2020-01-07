@@ -1,4 +1,6 @@
-<?php namespace PHPUnit\ParallelRunner;
+<?php
+
+namespace PHPUnit\ParallelRunner;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\Exception;
