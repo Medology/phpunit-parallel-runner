@@ -1,9 +1,9 @@
 <?php namespace PHPunit\ParallelRunner\Tests;
 
 use Exception;
-use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit\ParallelRunner\PHPUnit_Parallel_Command;
 use PHPUnit\ParallelRunner\PHPUnit_Parallel_TestRunner;
+use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;

@@ -3,8 +3,8 @@
 use PHPUnit_Framework_Test as Test;
 use PHPUnit_Framework_TestResult as TestResult;
 use PHPUnit_Framework_TestSuite as TestSuite;
-use PHPUnit_Runner_Filter_Group_Exclude as ExcludeGroupFilterIterator;
 use PHPUnit_Runner_Filter_Factory as Factory;
+use PHPUnit_Runner_Filter_Group_Exclude as ExcludeGroupFilterIterator;
 use PHPUnit_Runner_Filter_Group_Include as IncludeGroupFilterIterator;
 use PHPUnit_TextUI_TestRunner as TestRunner;
 use ReflectionClass;
@@ -69,7 +69,7 @@ class PHPUnit_Parallel_TestRunner extends TestRunner
     /**
      * {@inheritdoc}
      */
-    public function doRun(Test $suite, array $arguments = [],  $exit = true): TestResult
+    public function doRun(Test $suite, array $arguments = [], $exit = true): TestResult
     {
         $this->processSuiteFilters($suite, $arguments);
 

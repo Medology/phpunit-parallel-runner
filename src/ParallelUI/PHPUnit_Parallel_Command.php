@@ -2,9 +2,9 @@
 
 use InvalidArgumentException;
 use PHPUnit_Framework_Exception as Exception;
-use PHPUnit_Util_Getopt as Getopt;
 use PHPUnit_TextUI_Command as Command;
 use PHPUnit_TextUI_TestRunner as TestRunner;
+use PHPUnit_Util_Getopt as Getopt;
 use RuntimeException;
 
 /**
