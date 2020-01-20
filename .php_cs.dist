@@ -4,18 +4,17 @@ $finder = PhpCsFixer\Finder::create()->in(__DIR__);
 
 return PhpCsFixer\Config::create()
     ->setRules([
-        '@Symfony' => true,
+        '@Symfony'               => true,
         'binary_operator_spaces' => ['operators' => [
             '=>' => 'align_single_space_minimal',
-            '='  => 'align_single_space_minimal',
         ]],
-        'ordered_class_elements' => true,
-        'ordered_imports' => true,
-        'yoda_style' => false,
+        'ordered_class_elements'      => true,
+        'ordered_imports'             => true,
+        'yoda_style'                  => false,
         'blank_line_before_statement' => true,
         'class_attributes_separation' => [
-            'elements' => ['const', 'method', 'property']
+            'elements' => ['const', 'method', 'property'],
         ],
-	'phpdoc_no_empty_return'  => true
+        'phpdoc_no_empty_return' => true,
     ])
     ->setFinder($finder)->setUsingCache(false);

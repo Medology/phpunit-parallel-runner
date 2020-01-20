@@ -194,7 +194,7 @@ class TapPrinter extends Printer implements TestListener
      */
     protected function writeNotOk(Test $test, $prefix = '', $directive = ''): void
     {
-        $str_prefix    = $prefix !== '' ? $prefix.': ' : '';
+        $str_prefix = $prefix !== '' ? $prefix.': ' : '';
         $str_directive = $directive !== '' ? ' # '.$directive : '';
 
         $this->write(

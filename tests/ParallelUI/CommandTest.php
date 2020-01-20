@@ -24,7 +24,7 @@ class CommandTest extends TestCase
     public function testCreateRunnerReturnsParallelRunner(): void
     {
         $cmd = new PHPUnit_Parallel_Command();
-        $f   = $this->getHiddenMethod(get_class($cmd), 'createRunner');
+        $f = $this->getHiddenMethod(get_class($cmd), 'createRunner');
 
         $this->assertInstanceOf(PHPUnit_Parallel_TestRunner::class, $f->invokeArgs($cmd, []));
     }
@@ -37,7 +37,7 @@ class CommandTest extends TestCase
     public function testHelpShowsParallelParameters(): void
     {
         $cmd = new PHPUnit_Parallel_Command();
-        $f   = $this->getHiddenMethod(get_class($cmd), 'showHelp');
+        $f = $this->getHiddenMethod(get_class($cmd), 'showHelp');
 
         $help = $this->getStdOut(function () use ($cmd, $f) {
             $f->invokeArgs($cmd, []);
@@ -70,7 +70,7 @@ class CommandTest extends TestCase
     public function testCmdFailsWhenBothParamsAreNotProvided(array $args): void
     {
         $cmd = new PHPUnit_Parallel_Command();
-        $f   = $this->getHiddenMethod(get_class($cmd), 'handleArguments');
+        $f = $this->getHiddenMethod(get_class($cmd), 'handleArguments');
 
         try {
             $f->invokeArgs($cmd, [$args]);

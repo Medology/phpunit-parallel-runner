@@ -55,7 +55,7 @@ class Parallel extends RecursiveFilterIterator
             throw new InvalidArgumentException('Current node must be greater than or equal to 0, but less than or equal to total nodes!');
         }
 
-        $this->THIS_NODE   = $currentNode;
+        $this->THIS_NODE = $currentNode;
         $this->TOTAL_NODES = $totalNodes;
     }
 }
