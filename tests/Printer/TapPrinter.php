@@ -37,9 +37,9 @@ class TapPrinter extends Printer implements TestListener
     /**
      * Adds an error to the output when an error occurred.
      *
-     * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
-     * @param float     $time Time of the test execution.
+     * @param Test      $test the current test being executed
+     * @param Throwable $t    the throwable exception returned during the test execution
+     * @param float     $time time of the test execution
      */
     public function addError(Test $test, Throwable $t, float $time): void
     {
@@ -49,21 +49,21 @@ class TapPrinter extends Printer implements TestListener
     /**
      * Increments the warning count when a warning occurred during the test execution.
      *
-     * @param Test    $test The current test being executed.
-     * @param Warning $e    The warning exception thrown during the test execution.
-     * @param float   $time Time of the test execution.
+     * @param Test    $test the current test being executed
+     * @param Warning $e    the warning exception thrown during the test execution
+     * @param float   $time time of the test execution
      */
     public function addWarning(Test $test, Warning $e, float $time): void
     {
-        $this->warningCount++;
+        ++$this->warningCount;
     }
 
     /**
      * When a failure occurred, the exception is catch and added to the output.
      *
-     * @param Test                 $test The current test being executed.
-     * @param AssertionFailedError $e    The exception thrown during the test execution.
-     * @param float                $time Time of the test execution.
+     * @param Test                 $test the current test being executed
+     * @param AssertionFailedError $e    the exception thrown during the test execution
+     * @param float                $time time of the test execution
      */
     public function addFailure(Test $test, AssertionFailedError $e, float $time): void
     {
@@ -94,9 +94,9 @@ class TapPrinter extends Printer implements TestListener
     /**
      * When a test cannot finish the execution, mark them as Incomplete test.
      *
-     * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
-     * @param float     $time Time of the test execution.
+     * @param Test      $test the current test being executed
+     * @param Throwable $t    the throwable exception returned during the test execution
+     * @param float     $time time of the test execution
      */
     public function addIncompleteTest(Test $test, Throwable $t, float $time): void
     {
@@ -106,9 +106,9 @@ class TapPrinter extends Printer implements TestListener
     /**
      * When a test is detected as Risky, mark them as Risky test.
      *
-     * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
-     * @param float     $time Time of the test execution.
+     * @param Test      $test the current test being executed
+     * @param Throwable $t    the throwable exception returned during the test execution
+     * @param float     $time time of the test execution
      */
     public function addRiskyTest(Test $test, Throwable $t, float $time): void
     {
@@ -121,9 +121,9 @@ class TapPrinter extends Printer implements TestListener
     /**
      * When a test contains the Skipped annotation, the tests is marked as Skipped test.
      *
-     * @param Test      $test The current test being executed.
-     * @param Throwable $t    The throwable exception returned during the test execution.
-     * @param float     $time Time of the test execution.
+     * @param Test      $test the current test being executed
+     * @param Throwable $t    the throwable exception returned during the test execution
+     * @param float     $time time of the test execution
      */
     public function addSkippedTest(Test $test, Throwable $t, float $time): void
     {
@@ -136,21 +136,21 @@ class TapPrinter extends Printer implements TestListener
     /**
      * A test suite started their execution.
      *
-     * @param TestSuite $suite The current test suite which is going to been executed.
+     * @param TestSuite $suite the current test suite which is going to been executed
      */
     public function startTestSuite(TestSuite $suite): void
     {
-        $this->testSuiteLevel++;
+        ++$this->testSuiteLevel;
     }
 
     /**
      * A test suite ended their execution.
      *
-     * @param TestSuite $suite The current test suite ended their execution.
+     * @param TestSuite $suite the current test suite ended their execution
      */
     public function endTestSuite(TestSuite $suite): void
     {
-        $this->testSuiteLevel--;
+        --$this->testSuiteLevel;
 
         if ($this->testSuiteLevel === 0) {
             $this->write(sprintf("1..%d\n", $this->testNumber));
@@ -160,19 +160,19 @@ class TapPrinter extends Printer implements TestListener
     /**
      * A test started their execution.
      *
-     * @param Test $test The current test being executed.
+     * @param Test $test the current test being executed
      */
     public function startTest(Test $test): void
     {
-        $this->testNumber++;
+        ++$this->testNumber;
         $this->testSuccessful = true;
     }
 
     /**
      * When a test ended, validates the execution status and output a diagnostics of the execution.
      *
-     * @param Test  $test The current test being executed.
-     * @param float $time Time of the test execution.
+     * @param Test  $test the current test being executed
+     * @param float $time time of the test execution
      */
     public function endTest(Test $test, float $time): void
     {
@@ -188,13 +188,13 @@ class TapPrinter extends Printer implements TestListener
     /**
      * When a test fails, writes to the output the status of the test and the failure reason.
      *
-     * @param Test   $test      The current test being executed.
+     * @param Test   $test      the current test being executed
      * @param string $prefix    Prefix of the test
      * @param string $directive Directive
      */
     protected function writeNotOk(Test $test, $prefix = '', $directive = ''): void
     {
-        $str_prefix = $prefix !== '' ? $prefix.': ' : '';
+        $str_prefix    = $prefix !== '' ? $prefix.': ' : '';
         $str_directive = $directive !== '' ? ' # '.$directive : '';
 
         $this->write(
@@ -213,7 +213,7 @@ class TapPrinter extends Printer implements TestListener
     /**
      * Appends to the output the failure reason, unless is defined to not return and output.
      *
-     * @param Test $test The current test being executed.
+     * @param Test $test the current test being executed
      */
     private function writeDiagnostics(Test $test): void
     {

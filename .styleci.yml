@@ -1,0 +1,7 @@
+preset: symfony
+
+disabled:
+  - unalign_double_arrow
+  - unalign_equals
+  - yoda_style
+  - single_line_throw

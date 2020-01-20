@@ -20,12 +20,22 @@ class PHPUnit_Parallel_TestRunner extends TestRunner
     const PARALLEL_ARG = 'parallelNodes';
 
     /**
+     * {@inheritdoc}
+     */
+    public function doRun(Test $suite, array $arguments = [], bool $exit = true): TestResult
+    {
+        $this->processSuiteFilters($suite, $arguments);
+
+        return call_user_func_array(['parent', 'doRun'], func_get_args());
+    }
+
+    /**
      * Processes a potentially nested test suite based on various filters through the CLI.
      *
      * @param TestSuite $suite     The suite to filter
      * @param array     $arguments The CLI arguments
      *
-     * @throws ReflectionException When an error occurred at accessing the class filters.
+     * @throws ReflectionException when an error occurred at accessing the class filters
      */
     private function processSuiteFilters(TestSuite $suite, array $arguments): void
     {
@@ -67,15 +77,5 @@ class PHPUnit_Parallel_TestRunner extends TestRunner
         }
 
         $suite->injectFilter($filterFactory);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function doRun(Test $suite, array $arguments = [], bool $exit = true): TestResult
-    {
-        $this->processSuiteFilters($suite, $arguments);
-
-        return call_user_func_array(['parent', 'doRun'], func_get_args());
     }
 }

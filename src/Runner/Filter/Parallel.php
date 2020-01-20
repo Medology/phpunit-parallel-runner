@@ -10,7 +10,9 @@ use RecursiveIterator;
 class Parallel extends RecursiveFilterIterator
 {
     private $THIS_NODE;
+
     private $TOTAL_NODES;
+
     private static $counter;
 
     /**
@@ -25,24 +27,6 @@ class Parallel extends RecursiveFilterIterator
     }
 
     /**
-     * @param $currentNode
-     * @param $totalNodes
-     */
-    protected function setFilter($currentNode, $totalNodes)
-    {
-        if (!is_numeric($totalNodes) || $totalNodes < 1) {
-            throw new InvalidArgumentException('Total nodes must be greater than or equal to 1!');
-        } elseif (!is_numeric($currentNode) || $currentNode < 0 || $currentNode >= $totalNodes) {
-            throw new InvalidArgumentException(
-                'Current node must be greater than or equal to 0, but less than or equal to total nodes!'
-            );
-        }
-
-        $this->THIS_NODE = $currentNode;
-        $this->TOTAL_NODES = $totalNodes;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function accept()
@@ -54,8 +38,24 @@ class Parallel extends RecursiveFilterIterator
         }
 
         $mod = (int) (self::$counter - $this->THIS_NODE) % $this->TOTAL_NODES;
-        self::$counter++;
+        ++self::$counter;
 
         return $mod === 0;
+    }
+
+    /**
+     * @param $currentNode
+     * @param $totalNodes
+     */
+    protected function setFilter($currentNode, $totalNodes)
+    {
+        if (!is_numeric($totalNodes) || $totalNodes < 1) {
+            throw new InvalidArgumentException('Total nodes must be greater than or equal to 1!');
+        } elseif (!is_numeric($currentNode) || $currentNode < 0 || $currentNode >= $totalNodes) {
+            throw new InvalidArgumentException('Current node must be greater than or equal to 0, but less than or equal to total nodes!');
+        }
+
+        $this->THIS_NODE   = $currentNode;
+        $this->TOTAL_NODES = $totalNodes;
     }
 }
