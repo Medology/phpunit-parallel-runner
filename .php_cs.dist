@@ -16,5 +16,6 @@ return PhpCsFixer\Config::create()
             'elements' => ['const', 'method', 'property'],
         ],
         'phpdoc_no_empty_return' => true,
+	'concat_space' => ['spacing' => 'one'],
     ])
     ->setFinder($finder)->setUsingCache(false);

@@ -112,7 +112,7 @@ class TapPrinter extends Printer implements TestListener
      */
     public function addRiskyTest(Test $test, Throwable $t, float $time): void
     {
-        $message = $t->getMessage() !== '' ? ' '.$t->getMessage() : '';
+        $message = $t->getMessage() !== '' ? ' ' . $t->getMessage() : '';
         $this->write(sprintf("ok %d - # RISKY%s\n", $this->testNumber, $message));
 
         $this->testSuccessful = false;
@@ -127,7 +127,7 @@ class TapPrinter extends Printer implements TestListener
      */
     public function addSkippedTest(Test $test, Throwable $t, float $time): void
     {
-        $message = $t->getMessage() !== '' ? ' '.$t->getMessage() : '';
+        $message = $t->getMessage() !== '' ? ' ' . $t->getMessage() : '';
         $this->write(sprintf("ok %d - # SKIP%s\n", $this->testNumber, $message));
 
         $this->testSuccessful = false;
@@ -194,8 +194,8 @@ class TapPrinter extends Printer implements TestListener
      */
     protected function writeNotOk(Test $test, $prefix = '', $directive = ''): void
     {
-        $str_prefix = $prefix !== '' ? $prefix.': ' : '';
-        $str_directive = $directive !== '' ? ' # '.$directive : '';
+        $str_prefix = $prefix !== '' ? $prefix . ': ' : '';
+        $str_directive = $directive !== '' ? ' # ' . $directive : '';
 
         $this->write(
             sprintf(
