@@ -17,43 +17,9 @@ use RuntimeException;
 class CommandTest extends TestCase
 {
     /**
-     * Access the hidden method and make it accessible for the test.
-     *
-     * @param string $class  String with the class name
-     * @param string $method String with the method name.
-     *
-     * @throws ReflectionException When the class or function name cannot be found/accessed.
-     *
-     * @return ReflectionMethod
-     */
-    private function getHiddenMethod(string $class, string $method): ReflectionMethod
-    {
-        $r = new ReflectionClass($class);
-        $f = $r->getMethod($method);
-        $f->setAccessible(true);
-
-        return $f;
-    }
-
-    /**
-     * Gets and return the stdOut output.
-     *
-     * @param callable $trigger
-     *
-     * @return string
-     */
-    private function getStdOut(callable $trigger): string
-    {
-        ob_start();
-        $trigger();
-
-        return ob_get_clean();
-    }
-
-    /**
      * Tests and assert the correct creation of an instance of the runner.
      *
-     * @throws ReflectionException When the class or function name cannot be found/accessed.
+     * @throws ReflectionException when the class or function name cannot be found/accessed
      */
     public function testCreateRunnerReturnsParallelRunner(): void
     {
@@ -66,7 +32,7 @@ class CommandTest extends TestCase
     /**
      * Tests and assert the correct display/return of the current options for the command showHelp.
      *
-     * @throws ReflectionException When the class or function name cannot be found/accessed.
+     * @throws ReflectionException when the class or function name cannot be found/accessed
      */
     public function testHelpShowsParallelParameters(): void
     {
@@ -83,8 +49,6 @@ class CommandTest extends TestCase
 
     /**
      * Return the data for the tests.
-     *
-     * @return array
      */
     public function singleParameterProvider(): array
     {
@@ -99,9 +63,9 @@ class CommandTest extends TestCase
      *
      * @dataProvider singleParameterProvider The helper function used to get the information for tests.
      *
-     * @param array $args Arguments used for the test.
+     * @param array $args arguments used for the test
      *
-     * @throws ReflectionException When the class or function name cannot be found/accessed.
+     * @throws ReflectionException when the class or function name cannot be found/accessed
      */
     public function testCmdFailsWhenBothParamsAreNotProvided(array $args): void
     {
@@ -115,5 +79,33 @@ class CommandTest extends TestCase
             $this->assertInstanceOf(RuntimeException::class, $e);
             $this->assertContains('Both --current-node and --total-nodes are required for parallelism', $e->getMessage());
         }
+    }
+
+    /**
+     * Access the hidden method and make it accessible for the test.
+     *
+     * @param string $class  String with the class name
+     * @param string $method string with the method name
+     *
+     * @throws ReflectionException when the class or function name cannot be found/accessed
+     */
+    private function getHiddenMethod(string $class, string $method): ReflectionMethod
+    {
+        $r = new ReflectionClass($class);
+        $f = $r->getMethod($method);
+        $f->setAccessible(true);
+
+        return $f;
+    }
+
+    /**
+     * Gets and return the stdOut output.
+     */
+    private function getStdOut(callable $trigger): string
+    {
+        ob_start();
+        $trigger();
+
+        return ob_get_clean();
     }
 }
