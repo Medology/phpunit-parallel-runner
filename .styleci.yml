@@ -5,3 +5,4 @@ disabled:
   - unalign_equals
   - yoda_style
   - single_line_throw
+  - concat_without_spaces
