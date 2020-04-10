@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+set -eu
 
-. "${DIR}"/bin/lib/images.sh
-. "${DIR}"/bin/lib/rm.sh
-. "${DIR}"/bin/lib/tty.sh
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
 
-docker run -i${TTY} ${RM} ${SED_REPO}:${SED_TAG} sed ${ARGS}
+. "${ROOT}"/bin/lib/images.sh
+. "${ROOT}"/docker/lib/images.sh
+. "${ROOT}"/bin/lib/tty.sh
+
+docker run \
+  -i"${TTY}" \
+  --rm \
+ "${SED_IMAGE}" sed "$@"
