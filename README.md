@@ -6,9 +6,11 @@ _processes_, this extensions allows for running PHPUnit in parallel on multiple 
  in various CI services such as CircleCI and TravisCI.
  
 ## Dependencies
-### PhpUnit
-- [Version 5](https://github.com/Medology/phpunit-parallel-runner)
-- [Version 4](https://github.com/Medology/phpunit-parallel-runner/tree/phpunit4)
+PHPUnit >= 7.5
+
+Legacy support
+- [PHPUnit 5 branch](https://github.com/Medology/phpunit-parallel-runnertree/phpunit5)
+- [PHPUnit 4 branch](https://github.com/Medology/phpunit-parallel-runner/tree/phpunit4)
 
 The development environment for this project is configured using docker, removing the need to actually install
 anything on your maching. Simply install the [Docker Engine](https://docs.docker.com/engine/installation/) and
